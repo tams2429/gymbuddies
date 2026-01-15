@@ -1,0 +1,32 @@
+# React Native & Firebase Professional Standards
+
+## Tech Stack Preferences
+
+-   Framework: Expo (managed workflow)
+-   Language: TypeScript (strict mode)
+-   Styling: NativeWind (Tailwind CSS for React Native)
+-   Backend: Firebase (Auth, Firestore, Storage)
+-   Navigation: Expo Router (File-based)
+
+## Coding Standards
+
+-   Use functional components with arrow functions.
+-   Enforce strict typing; avoid the 'any' keyword.
+-   Follow a modular directory structure:
+    -   /app (Expo Router screens)
+    -   /components (Reusable UI)
+    -   /hooks (Custom React hooks)
+    -   /services (Firebase config and API calls)
+    -   /constants (Theme and config values)
+
+## Firebase Best Practices
+
+-   Initialize Firebase in a single service file (`/services/firebase.ts`).
+-   Use custom hooks for Firebase data fetching (e.g., `useAuth`, `useFirestoreQuery`) to separate logic from UI.
+-   Always handle loading and error states for asynchronous Firebase calls.
+
+## Rules for AI Agent
+
+-   When adding new features, first check for existing components in /components to maintain UI consistency.
+-   Always run `npx expo install` for new packages to ensure version compatibility.
+-   Ensure all mobile views are responsive and tested for both iOS and Android layouts.
