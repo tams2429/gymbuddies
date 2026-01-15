@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "GymBuddies",
+    "slug": "gymbuddies",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gymbuddies.app",
+      "infoPlist": {
+        "NSHealthShareUsageDescription": "GymBuddies needs access to your health data to track your workouts and calculate your fitness progress.",
+        "NSHealthUpdateUsageDescription": "GymBuddies needs to update your health data to log your workouts."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.gymbuddies.app",
+      "permissions": [
+        "android.permission.READ_HEALTH_DATA",
+        "android.permission.WRITE_HEALTH_DATA"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "scheme": "gymbuddies"
+  }
+}
