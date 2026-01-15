@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users can read/write their own user document
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Users can read/write their own workouts
+    match /workouts/{workoutId} {
+      allow read, write: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+    }
+
+    // Users can read their own progress
+    match /userProgress/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false; // Only Cloud Functions can write
+    }
+
+    // Leaderboards are readable by all authenticated users
+    match /leaderboards/{entryId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only Cloud Functions can write
+    }
+
+    // Friendships
+    match /friendships/{friendshipId} {
+      allow read: if request.auth != null && 
+        (resource.data.user1Id == request.auth.uid || 
+         resource.data.user2Id == request.auth.uid);
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null && 
+        (resource.data.user1Id == request.auth.uid || 
+         resource.data.user2Id == request.auth.uid);
+    }
+
+    // Achievements and badges (read-only for users)
+    match /achievements/{achievementId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    match /badges/{badgeId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    match /userAchievements/{achievementId} {
+      allow read: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      allow write: if false; // Only Cloud Functions can write
+    }
+
+    match /userBadges/{badgeId} {
+      allow read: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      allow write: if false; // Only Cloud Functions can write
+    }
+
+    // Pets
+    match /pets/{petId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    match /userPets/{petId} {
+      allow read: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      allow write: if false; // Only Cloud Functions can write
+    }
+
+    // Titles
+    match /titles/{titleId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    match /userTitles/{titleId} {
+      allow read: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      allow write: if false; // Only Cloud Functions can write
+    }
+  }
+}
